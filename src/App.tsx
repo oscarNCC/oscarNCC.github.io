@@ -19,10 +19,7 @@ export default function App() {
   if (loading) {
     return (
       <div className="loading-pag">
-        <div className="loader">
-          <span>Oscar Portfolio 🍩</span>
-          <span>Oscar Portfolio 🍩</span>
-        </div>
+        <div className="loader" />
       </div>
     );
   }

@@ -7,11 +7,12 @@
   --black: #121f41;
   --light-color: #788e9c;
   --white: #fff;
-  --page-bg: #b2d8fc;
-  --borde: 0.1rem solid rgba(0, 0, 0, 0.1);
-  --box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.1);
-  --border-color: #c9d4e4;
-  --text-muted: #6c757d;
+  --page-bg: #151c2d;
+  --page-bg-soft: #1a2238;
+  --borde: 0.1rem solid rgba(255, 255, 255, 0.08);
+  --box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.2);
+  --border-color: rgba(255, 255, 255, 0.1);
+  --text-muted: rgba(255, 255, 255, 0.7);
   --link-color: var(--green);
   --card-bg: #dae2f0;
   --tag-bg: #e9ecef;
@@ -35,7 +36,7 @@ html {
 body {
   font-size: 1.6rem;
   line-height: 1.5;
-  color: var(--black);
+  color: var(--white);
   background-color: var(--page-bg);
   -webkit-font-smoothing: antialiased;
 }
@@ -51,7 +52,7 @@ img {
   display: block;
 }
 
-/* Loading (Nahuel style) */
+/* Loading */
 .loading-pag {
   text-align: center;
   background: #0e0c0c;
@@ -62,38 +63,30 @@ img {
   height: 100vh;
 }
 
+/* HTML: <div class="loader"></div> */
 .loader {
-  position: relative;
-}
-
-.loader span {
-  position: absolute;
+  width: fit-content;
+  font-weight: bold;
+  font-family: monospace;
   color: var(--white);
-  transform: translate(-50%, -50%);
-  font-size: 5rem;
-  letter-spacing: 3px;
-  white-space: pre;
+  text-shadow:
+    0 0 0 rgb(255 0 0),
+    0 0 0 rgb(0 255 0),
+    0 0 0 rgb(0 0 255);
+  font-size: 30px;
+  animation: l32 1s infinite cubic-bezier(0.5, -2000, 0.5, 2000);
 }
 
-.loader span:nth-child(1) {
-  color: transparent;
-  -webkit-text-stroke: 0.3px var(--green);
+.loader::before {
+  content: "Loading...";
 }
 
-.loader span:nth-child(2) {
-  color: var(--green);
-  -webkit-text-stroke: 1px var(--green);
-  animation: loaderPulse 1.5s ease-in-out infinite;
-}
-
-@keyframes loaderPulse {
-  0%, 100% {
-    opacity: 0.6;
-    transform: translate(-50%, -50%) scale(1);
-  }
-  50% {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1.05);
+@keyframes l32 {
+  25%, 100% {
+    text-shadow:
+      0.03px -0.01px 0.01px rgb(255 0 0),
+      0.02px 0.02px 0 rgb(0 255 0),
+      -0.02px 0.02px 0 rgb(0 0 255);
   }
 }
 
@@ -103,7 +96,7 @@ img {
   padding-bottom: 3rem;
   margin-top: 5rem;
   font-size: 4rem;
-  color: var(--black);
+  color: var(--white);
   font-weight: 700;
 }
 
@@ -136,14 +129,14 @@ img {
 }
 
 .btn-codigo {
-  border: 2px solid var(--black);
-  color: var(--black);
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  color: var(--white);
   background: transparent;
 }
 
 .btn-codigo:hover {
-  background: var(--black);
-  color: var(--white);
+  background: var(--white);
+  color: var(--page-bg);
 }
 
 @media (max-width: 570px) {
