@@ -1,0 +1,67 @@
+.section {
+  padding-top: 1rem;
+  padding-bottom: 4rem;
+}
+
+.section:first-of-type {
+  padding-top: 2rem;
+}
+
+.subtitle {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.tagline {
+  font-size: 1.4rem;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+}
+
+.bio {
+  font-size: 1.8rem;
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+}
+
+.bio code {
+  font-size: 0.9em;
+  padding: 0.15rem 0.4rem;
+  background: var(--tag-bg);
+  border-radius: 4px;
+}
+
+.avatar {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 0 auto;
+}
+
+.intro {
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+  max-width: 560px;
+}
+
+.linkList {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.5rem;
+}
+
+.linkList li {
+  margin-bottom: 0.75rem;
+}
+
+.contactLink {
+  font-size: 1.8rem;
+  color: var(--green);
+  font-weight: 600;
+}
+
+.contactLink:hover {
+  color: var(--secundario);
+}

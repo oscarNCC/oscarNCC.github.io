@@ -1,0 +1,112 @@
+.siteHeader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: rgba(1, 1, 1, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2rem 8%;
+  box-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.2);
+}
+
+.logo {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--white);
+}
+
+.logoName {
+  color: var(--green);
+}
+
+.logoText {
+  letter-spacing: 0.5px;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+}
+
+.navLink {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.9);
+  position: relative;
+  cursor: pointer;
+}
+
+.navLink::before {
+  content: "";
+  height: 3px;
+  width: 0;
+  background: var(--green);
+  position: absolute;
+  left: 0;
+  bottom: -0.8rem;
+  transition: width 0.3s ease-out;
+}
+
+.navLink:hover::before,
+.navbar .active::before {
+  width: 100%;
+}
+
+.navLink:hover {
+  color: var(--green);
+}
+
+.menuBtn {
+  display: none;
+  font-size: 2rem;
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  padding: 0.5rem 0.75rem;
+  cursor: pointer;
+  color: var(--white);
+}
+
+@media (max-width: 990px) {
+  .siteHeader {
+    padding: 2rem 4%;
+  }
+}
+
+@media (max-width: 760px) {
+  .siteHeader {
+    flex-wrap: wrap;
+    padding: 1.5rem 5%;
+  }
+
+  .menuBtn {
+    display: block;
+  }
+
+  .navbar {
+    width: 100%;
+    order: 3;
+    flex-direction: column;
+    gap: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.3s ease, opacity 0.3s ease;
+  }
+
+  .navbar.navbarOpen {
+    max-height: 320px;
+    opacity: 1;
+  }
+
+  .logo {
+    font-size: 1.8rem;
+  }
+}

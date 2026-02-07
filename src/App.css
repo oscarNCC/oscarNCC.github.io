@@ -1,0 +1,17 @@
+/* App-level overrides for Nahuel portfolio style */
+main.main-content {
+  padding: 2rem 8%;
+  overflow-x: hidden;
+}
+
+@media (max-width: 990px) {
+  main.main-content {
+    padding: 2rem 4%;
+  }
+}
+
+@media (max-width: 570px) {
+  main.main-content {
+    padding: 2rem 5%;
+  }
+}

@@ -1,0 +1,151 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700&display=swap');
+
+:root {
+  --green: #00e5fe;
+  --secundario: #15b8ca;
+  --terciario: #00fefe;
+  --black: #121f41;
+  --light-color: #788e9c;
+  --white: #fff;
+  --borde: 0.1rem solid rgba(0, 0, 0, 0.1);
+  --box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.1);
+  --border-color: #dee2e6;
+  --text-muted: #6c757d;
+  --link-color: var(--green);
+  --card-bg: #f8f9fa;
+  --tag-bg: #e9ecef;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: 'Nunito', sans-serif;
+  font-size: 62.5%;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-size: 1.6rem;
+  line-height: 1.5;
+  color: var(--black);
+  background-color: var(--white);
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: var(--link-color);
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Loading (Nahuel style) */
+.loading-pag {
+  text-align: center;
+  background: #0e0c0c;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+}
+
+.loader {
+  position: relative;
+}
+
+.loader span {
+  position: absolute;
+  color: var(--white);
+  transform: translate(-50%, -50%);
+  font-size: 5rem;
+  letter-spacing: 3px;
+  white-space: pre;
+}
+
+.loader span:nth-child(1) {
+  color: transparent;
+  -webkit-text-stroke: 0.3px var(--green);
+}
+
+.loader span:nth-child(2) {
+  color: var(--green);
+  -webkit-text-stroke: 1px var(--green);
+  animation: loaderPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes loaderPulse {
+  0%, 100% {
+    opacity: 0.6;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.05);
+  }
+}
+
+/* Section heading (Nahuel style) */
+.heading {
+  text-align: center;
+  padding-bottom: 3rem;
+  margin-top: 5rem;
+  font-size: 4rem;
+  color: var(--black);
+  font-weight: 700;
+}
+
+/* Buttons */
+.custom-btn {
+  text-align: center;
+  max-width: 18rem;
+  height: 4rem;
+  color: var(--white);
+  border-radius: 5px;
+  border: 2px solid transparent;
+  padding: 0.8rem 2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.btn {
+  background: var(--green);
+  color: var(--black);
+}
+
+.btn:hover {
+  background: var(--terciario);
+  color: var(--black);
+}
+
+.btn-codigo {
+  border: 2px solid var(--black);
+  color: var(--black);
+  background: transparent;
+}
+
+.btn-codigo:hover {
+  background: var(--black);
+  color: var(--white);
+}
+
+@media (max-width: 570px) {
+  .loader span {
+    font-size: 2.8rem;
+  }
+}

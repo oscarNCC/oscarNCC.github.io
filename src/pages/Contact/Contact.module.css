@@ -1,0 +1,28 @@
+.section {
+  max-width: 600px;
+}
+
+.intro {
+  color: var(--text-muted, #6c757d);
+  margin-bottom: 1.5rem;
+}
+
+.linkList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.linkList li {
+  margin-bottom: 0.75rem;
+}
+
+.link {
+  font-size: 1.1rem;
+  color: var(--link-color, #0d6efd);
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
