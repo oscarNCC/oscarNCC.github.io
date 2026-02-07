@@ -36,7 +36,7 @@ export function Home() {
 
         <section className={styles.section} id="projects">
           <h2 className="heading">Projects</h2>
-          <div className="row g-4">
+          <div className="row g-5">
             {featuredProjects.map((project) => (
               <div key={project.id} className="col-md-6 col-lg-4">
                 <ProjectCard project={project} />

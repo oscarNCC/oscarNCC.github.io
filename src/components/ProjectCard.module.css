@@ -1,20 +1,24 @@
 .card {
-  border: 1px solid var(--border-color, #dee2e6);
+  border: 1px solid #e2e6eb;
   border-radius: 8px;
   overflow: hidden;
   height: 100%;
   display: flex;
   flex-direction: column;
   transition: box-shadow 0.2s ease;
+  margin: 0.75rem;
+  padding: 0;
+  background: #fff;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
 .card:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1), 0 4px 10px rgba(0, 0, 0, 0.06);
 }
 
 .imageWrap {
   aspect-ratio: 16 / 10;
-  background: var(--card-bg, #f8f9fa);
+  background: #fff;
   overflow: hidden;
 }
 
@@ -37,7 +41,7 @@
 }
 
 .body {
-  padding: 1.25rem;
+  padding: 2.25rem 2rem;
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -45,30 +49,33 @@
 
 .title {
   font-size: 3rem;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
+  font-weight: 400;
+  margin-bottom: 0.75rem;
+  color: var(--black, #121f41);
 }
 
 .description {
   color: var(--text-muted, #6c757d);
   font-size: 2rem;
+  font-weight: 300;
   line-height: 1.5;
-  margin-bottom: 0.75rem;
+  margin-bottom: 1rem;
   flex: 1;
 }
 
 .tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.35rem;
-  margin-bottom: 0.75rem;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .tag {
   font-size: 1rem;
-  padding: 0.25rem 0.6rem;
+  font-weight: 400;
+  padding: 0.4rem 0.75rem;
   background: var(--tag-bg, #e9ecef);
   border-radius: 4px;
-  color: var(--text-muted, #6c757d);
+  color: #5a6268;
 }
 

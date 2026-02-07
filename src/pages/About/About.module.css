@@ -10,25 +10,26 @@
 }
 
 .title {
-  font-size: 2.6rem;
+  font-size: 3.2rem;
   font-weight: 700;
   margin-bottom: 0.25rem;
 }
 
 .tagline {
-  font-size: 1.4rem;
+  font-size: 1.8rem;
   color: var(--text-muted, #6c757d);
   margin-bottom: 1rem;
 }
 
 .bio {
-  font-size: 1.8rem;
+  font-size: 2.2rem;
   line-height: 1.7;
 }
 
 .bio code {
   font-size: 0.9em;
   padding: 0.15rem 0.4rem;
-  background: var(--code-bg, #f1f3f5);
+  background: var(--code-bg);
   border-radius: 4px;
+  color: var(--black);
 }

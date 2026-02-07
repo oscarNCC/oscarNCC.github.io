@@ -1,7 +1,13 @@
 /* App-level overrides for Nahuel portfolio style */
+html,
+body {
+  background-color: var(--page-bg) !important;
+}
+
 main.main-content {
   padding: 2rem 8%;
   overflow-x: hidden;
+  background: transparent;
 }
 
 @media (max-width: 990px) {
