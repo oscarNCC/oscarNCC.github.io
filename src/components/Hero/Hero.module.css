@@ -104,8 +104,77 @@
   height: 140px;
   border-radius: 50%;
   object-fit: cover;
-  border: 3px solid var(--green);
-  box-shadow: 0 8px 24px rgba(0, 255, 200, 0.2);
+  border: 3px solid rgb(255, 0, 0);
+  box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+  animation: rgbBreathe 14s ease-in-out infinite;
+}
+
+@keyframes rgbBreathe {
+  /* 紅 → 黃（慢過渡） */
+  0% {
+    border-color: rgb(255, 0, 0);
+    box-shadow: 0 0 14px rgba(255, 0, 0, 0.35), 0 8px 24px rgba(0, 0, 0, 0.2);
+  }
+  4% {
+    border-color: rgb(255, 0, 0);
+    box-shadow: 0 0 26px rgba(255, 0, 0, 0.65), 0 8px 24px rgba(0, 0, 0, 0.2);
+  }
+  14% {
+    border-color: rgb(255, 180, 0);
+    box-shadow: 0 0 14px rgba(255, 180, 0, 0.35), 0 8px 24px rgba(0, 0, 0, 0.2);
+  }
+  18% {
+    border-color: rgb(255, 200, 0);
+    box-shadow: 0 0 26px rgba(255, 200, 0, 0.65), 0 8px 24px rgba(0, 0, 0, 0.2);
+  }
+  /* 黃 → 綠 */
+  28% {
+    border-color: rgb(100, 255, 0);
+    box-shadow: 0 0 14px rgba(100, 255, 0, 0.35), 0 8px 24px rgba(0, 0, 0, 0.2);
+  }
+  32% {
+    border-color: rgb(0, 255, 100);
+    box-shadow: 0 0 26px rgba(0, 255, 100, 0.65), 0 8px 24px rgba(0, 0, 0, 0.2);
+  }
+  /* 綠 → 青 */
+  42% {
+    border-color: rgb(0, 255, 180);
+    box-shadow: 0 0 14px rgba(0, 255, 180, 0.35), 0 8px 24px rgba(0, 0, 0, 0.2);
+  }
+  46% {
+    border-color: rgb(0, 220, 255);
+    box-shadow: 0 0 26px rgba(0, 220, 255, 0.65), 0 8px 24px rgba(0, 0, 0, 0.2);
+  }
+  /* 青 → 藍 */
+  56% {
+    border-color: rgb(0, 150, 255);
+    box-shadow: 0 0 14px rgba(0, 150, 255, 0.35), 0 8px 24px rgba(0, 0, 0, 0.2);
+  }
+  60% {
+    border-color: rgb(0, 100, 255);
+    box-shadow: 0 0 26px rgba(0, 100, 255, 0.65), 0 8px 24px rgba(0, 0, 0, 0.2);
+  }
+  /* 藍 → 紫 → 紅 */
+  70% {
+    border-color: rgb(100, 0, 255);
+    box-shadow: 0 0 14px rgba(100, 0, 255, 0.35), 0 8px 24px rgba(0, 0, 0, 0.2);
+  }
+  74% {
+    border-color: rgb(180, 0, 255);
+    box-shadow: 0 0 26px rgba(180, 0, 255, 0.65), 0 8px 24px rgba(0, 0, 0, 0.2);
+  }
+  84% {
+    border-color: rgb(255, 0, 180);
+    box-shadow: 0 0 14px rgba(255, 0, 180, 0.35), 0 8px 24px rgba(0, 0, 0, 0.2);
+  }
+  88% {
+    border-color: rgb(255, 0, 100);
+    box-shadow: 0 0 26px rgba(255, 0, 100, 0.65), 0 8px 24px rgba(0, 0, 0, 0.2);
+  }
+  100% {
+    border-color: rgb(255, 0, 0);
+    box-shadow: 0 0 14px rgba(255, 0, 0, 0.35), 0 8px 24px rgba(0, 0, 0, 0.2);
+  }
 }
 
 .greeting {
