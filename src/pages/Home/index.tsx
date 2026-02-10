@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { profile } from '../../data/profile';
 import { projects } from '../../data/projects';
 import { ProjectCard } from '../../components/ProjectCard';
@@ -34,9 +34,14 @@ export function Home() {
             ))}
           </div>
           <div className={styles.allProjectsWrap}>
-            <Link to="/projects" className="custom-btn btn-codigo">
+            <a
+              href="https://github.com/oscarNCC"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="custom-btn btn-codigo"
+            >
               All projects
-            </Link>
+            </a>
           </div>
         </section>
 
