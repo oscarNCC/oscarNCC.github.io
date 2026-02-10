@@ -8,7 +8,7 @@ export function Contact() {
         <section className={styles.section}>
           <h2 className="heading">Contact</h2>
         <p className={styles.intro}>
-          Get in touch via the links below. You can add a contact form later.
+          Get in touch via the links below.
         </p>
         <ul className={styles.linkList}>
           {profile.socialLinks.map((item) => (

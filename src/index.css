@@ -1,6 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700&display=swap');
+@import 'tailwindcss';
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 :root {
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
   --green: #00e5fe;
   --secundario: #15b8ca;
   --terciario: #00fefe;
@@ -28,7 +31,7 @@
 }
 
 html {
-  font-family: 'Nunito', sans-serif;
+  font-family: var(--font-sans);
   font-size: 62.5%;
   scroll-behavior: smooth;
 }

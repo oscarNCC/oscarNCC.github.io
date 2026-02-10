@@ -4,6 +4,13 @@ export interface Project {
   description: string;
   image: string;
   link?: string;
+  demo?: string;
+  /** 例如 TVB 訪問等 YouTube 連結 */
+  videoUrl?: string;
+  previewGif?: string;
+  /** 多張圖輪播預覽（與 gif player 同款樣式） */
+  previewMedia?: string[];
+  inProgress?: boolean;
   tags: string[];
   featured?: boolean;
 }

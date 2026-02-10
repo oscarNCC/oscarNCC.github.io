@@ -33,15 +33,62 @@
 
 .inicio {
   display: flex;
+  align-items: center;
   justify-content: center;
+  gap: 4rem;
   width: 100%;
-}
-
-.titulo {
-  margin: 12rem auto 0;
-  text-align: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 12rem 5% 4rem;
   z-index: 10;
   position: relative;
+}
+
+.heroLeft {
+  flex: 0 1 45%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.imageColumn {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.imageColumn::after {
+  content: "";
+  position: absolute;
+  width: 140%;
+  height: 100%;
+  left: -30%;
+  top: 50%;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(0, 229, 254, 0.15) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.heroRight {
+  flex: 0 1 55%;
+  text-align: left;
+  z-index: 10;
+}
+
+.heroBio {
+  max-width: 540px;
+  font-size: 1.7rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.88);
+  margin-bottom: 2rem;
+}
+
+.ctaWrap {
+  margin-top: 2rem;
 }
 
 .emojiRain {
@@ -76,19 +123,77 @@
 }
 
 .avatarWrap {
+  position: relative;
   display: flex;
   justify-content: center;
-  margin-bottom: 2rem;
+  margin: 0;
+}
+
+.bubbleContainer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.bubble {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 24px;
+  height: 24px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 28% 28%,
+    rgba(0, 229, 254, 0.95),
+    rgba(0, 229, 254, 0.6) 50%,
+    rgba(0, 200, 240, 0.4)
+  );
+  box-shadow:
+    0 0 14px rgba(0, 229, 254, 0.6),
+    inset 0 -2px 8px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  animation: bubbleFloat 3.5s linear forwards;
+  transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+}
+
+.bubble.bubblePop {
+  animation: none;
+  transform: translate(-50%, -50%) scale(1.5);
+  opacity: 0;
+}
+
+@keyframes bubbleFloat {
+  0% {
+    transform: translate(-50%, -50%) translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) translateY(-120px);
+    opacity: 0.75;
+  }
+}
+
+/* 貓掌游標：頭像上（含 hover/按下）都顯示貓掌 */
+.avatarButton,
+.avatarButton:hover,
+.avatarButton:active,
+.avatarButton:focus {
+  cursor: pointer;
 }
 
 .avatarButton {
   padding: 0;
   border: none;
   background: none;
-  cursor: pointer;
   border-radius: 50%;
   line-height: 0;
   transition: transform 0.2s ease;
+}
+
+.avatarButton .avatar {
+  cursor: pointer;
 }
 
 .avatarButton:hover {
@@ -100,8 +205,8 @@
 }
 
 .avatar {
-  width: 140px;
-  height: 140px;
+  width: 220px;
+  height: 220px;
   border-radius: 50%;
   object-fit: cover;
   border: 3px solid rgb(255, 0, 0);
@@ -177,6 +282,25 @@
   }
 }
 
+/* tracking-in-expand (Animista) */
+@keyframes tracking-in-expand {
+  0% {
+    letter-spacing: -0.5em;
+    opacity: 0;
+  }
+  40% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 1;
+    letter-spacing: 0;
+  }
+}
+
+.trackingInExpand {
+  animation: tracking-in-expand 0.7s cubic-bezier(0.215, 0.61, 0.355, 1) both;
+}
+
 .greeting {
   font-size: 3.2rem;
   color: var(--white);
@@ -184,25 +308,69 @@
   margin-bottom: 0.5rem;
 }
 
-.name {
-  font-size: 4rem;
-  color: var(--green);
-  margin-bottom: 0.5rem;
-}
-
 .rol {
   font-size: 2rem;
   color: var(--white);
   opacity: 0.9;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
+  min-height: 1.2em;
+}
+
+.rotatingTitle {
+  display: inline-block;
+  color: var(--green);
+  font-weight: 600;
+}
+
+.typeCursor {
+  display: inline-block;
+  width: 3px;
+  height: 1em;
+  margin-left: 2px;
+  vertical-align: text-bottom;
+  background: var(--green);
+  animation: cursorBlink 1s step-end infinite;
+}
+
+@keyframes cursorBlink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
 }
 
 .wrapper {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 1rem;
-  margin: 2rem 0;
+  margin: 1.5rem 0 0;
+}
+
+.iconButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  color: var(--black);
+  background: var(--green);
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+}
+
+.iconButton:hover {
+  background: var(--terciario);
+  color: var(--black);
+  transform: translateY(-2px);
+}
+
+.iconButton svg {
+  display: block;
 }
 
 .button {
@@ -232,27 +400,57 @@
   font-weight: 700;
 }
 
-@media (max-width: 760px) {
-  .name {
-    font-size: 3.2rem;
+@media (max-width: 768px) {
+  .inicio {
+    flex-direction: column;
+    padding-top: 10rem;
+    gap: 2.5rem;
   }
+
+  .heroRight {
+    order: -1;
+    text-align: center;
+  }
+
+  .heroRight .wrapper {
+    justify-content: center;
+  }
+
+  .heroBio {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+
+  .ctaWrap {
+    text-align: center;
+  }
+}
+
+@media (max-width: 760px) {
   .greeting {
     font-size: 2.8rem;
+  }
+  .rol {
+    font-size: 1.8rem;
   }
 }
 
 @media (max-width: 570px) {
-  .titulo {
-    margin-top: 10rem;
+  .inicio {
+    padding-top: 9rem;
   }
   .avatar {
-    width: 100px;
-    height: 100px;
-  }
-  .name {
-    font-size: 2.8rem;
+    width: 160px;
+    height: 160px;
   }
   .greeting {
     font-size: 2.4rem;
+  }
+  .rol {
+    font-size: 1.6rem;
+  }
+  .heroBio {
+    font-size: 1.5rem;
   }
 }

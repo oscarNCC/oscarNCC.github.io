@@ -65,3 +65,9 @@
 .contactLink:hover {
   color: var(--secundario);
 }
+
+.allProjectsWrap {
+  margin-top: 5.5rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}

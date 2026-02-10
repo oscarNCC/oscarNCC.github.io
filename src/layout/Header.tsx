@@ -27,9 +27,6 @@ export function Header() {
       <nav className={`${styles.navbar} ${menuOpen ? styles.navbarOpen : ''}`}>
         {isHome ? (
           <>
-            <ScrollLink to="hero" smooth duration={400} className={styles.navLink} href="#hero" onClick={() => setMenuOpen(false)}>
-              Home
-            </ScrollLink>
             <ScrollLink to="about" smooth duration={400} className={styles.navLink} href="#about" onClick={() => setMenuOpen(false)}>
               About
             </ScrollLink>
@@ -42,16 +39,13 @@ export function Header() {
           </>
         ) : (
           <>
-            <RouterLink to="/" className={styles.navLink} onClick={() => setMenuOpen(false)}>
-              Home
-            </RouterLink>
-            <RouterLink to="/about" className={styles.navLink} onClick={() => setMenuOpen(false)}>
+            <RouterLink to="/#about" className={styles.navLink} onClick={() => setMenuOpen(false)}>
               About
             </RouterLink>
-            <RouterLink to="/projects" className={styles.navLink} onClick={() => setMenuOpen(false)}>
+            <RouterLink to="/#projects" className={styles.navLink} onClick={() => setMenuOpen(false)}>
               Projects
             </RouterLink>
-            <RouterLink to="/contact" className={styles.navLink} onClick={() => setMenuOpen(false)}>
+            <RouterLink to="/#contact" className={styles.navLink} onClick={() => setMenuOpen(false)}>
               Contact
             </RouterLink>
           </>
