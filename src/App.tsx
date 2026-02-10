@@ -6,14 +6,41 @@ import { About } from './pages/About';
 import { Projects } from './pages/Projects';
 import { Contact } from './pages/Contact';
 import { ScrollToTop } from './components/ScrollToTop';
+import { projects } from './data/projects';
 import './App.css';
+
+const PRELOAD_TIMEOUT_MS = 15000;
+
+function preloadImages(urls: string[]): Promise<void> {
+  const unique = [...new Set(urls)].filter(Boolean);
+  if (unique.length === 0) return Promise.resolve();
+  return Promise.all(
+    unique.map(
+      (src) =>
+        new Promise<void>((resolve) => {
+          const img = new Image();
+          const done = () => resolve();
+          img.onload = done;
+          img.onerror = done;
+          img.src = src;
+        })
+    )
+  ).then(() => {});
+}
 
 export default function App() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const t = setTimeout(() => setLoading(false), 2500);
-    return () => clearTimeout(t);
+    const urls = projects.flatMap((p) =>
+      p.previewMedia?.length ? p.previewMedia : p.previewGif ? [p.previewGif] : []
+    );
+    const timeoutId = setTimeout(() => setLoading(false), PRELOAD_TIMEOUT_MS);
+    preloadImages(urls).then(() => {
+      clearTimeout(timeoutId);
+      setLoading(false);
+    });
+    return () => clearTimeout(timeoutId);
   }, []);
 
   if (loading) {
