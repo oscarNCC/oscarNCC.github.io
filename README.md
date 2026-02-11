@@ -1,6 +1,6 @@
 # Hi, I'm Oscar
 
-👋 Full‑stack software developer from Calgary 🇨🇦
+👋 Full‑stack software developer 
 
 I love building end‑to‑end applications — from sleek, responsive interfaces to efficient server‑side systems.
 
