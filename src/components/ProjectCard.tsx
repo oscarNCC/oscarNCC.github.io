@@ -20,6 +20,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
       : [];
   const hasPreview = previewUrls.length > 0;
   const [previewIndex, setPreviewIndex] = useState(0);
+  const [previewImageLoaded, setPreviewImageLoaded] = useState(false);
 
   useEffect(() => {
     if (previewUrls.length <= 1) return;
@@ -28,6 +29,10 @@ export function ProjectCard({ project }: ProjectCardProps) {
     }, PREVIEW_CYCLE_MS);
     return () => clearInterval(id);
   }, [previewUrls.length]);
+
+  useEffect(() => {
+    setPreviewImageLoaded(false);
+  }, [previewIndex]);
 
   const handleMouseMove = useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {
@@ -43,6 +48,11 @@ export function ProjectCard({ project }: ProjectCardProps) {
 
   const handleMouseLeave = useCallback(() => {
     setPreviewPos(null);
+    setPreviewImageLoaded(false);
+  }, []);
+
+  const handlePreviewImageLoad = useCallback(() => {
+    setPreviewImageLoaded(true);
   }, []);
 
   return (
@@ -59,11 +69,17 @@ export function ProjectCard({ project }: ProjectCardProps) {
             style={{ left: previewPos.x, top: previewPos.y }}
           >
             <div className={styles.previewGifWrap}>
+              {!previewImageLoaded && (
+                <div className={styles.previewGifPlaceholder} aria-hidden>
+                  <span className={styles.previewGifPlaceholderText}>Loading...</span>
+                </div>
+              )}
               <img
                 key={gifKey}
                 src={previewUrls[previewIndex]}
                 alt=""
                 className={styles.previewGif}
+                onLoad={handlePreviewImageLoad}
               />
             </div>
           </div>

@@ -4,11 +4,11 @@ import styles from './About.module.css';
 export function About() {
   return (
     <main className="main-content">
-      <div className="container">
+      <div className="mx-auto max-w-7xl px-4">
         <section className={styles.section}>
-        <div className="row align-items-center">
+        <div className="flex flex-wrap items-center gap-6">
           {profile.avatar && (
-            <div className="col-md-4 text-center mb-4 mb-md-0">
+            <div className="mb-4 w-full text-center md:mb-0 md:w-1/3 md:flex-shrink-0">
               <img
                 src={profile.avatar}
                 alt={profile.name}
@@ -16,7 +16,7 @@ export function About() {
               />
             </div>
           )}
-          <div className={profile.avatar ? 'col-md-8' : 'col-12'}>
+          <div className={profile.avatar ? 'min-w-0 flex-1 md:w-2/3' : 'w-full'}>
             <h1 className={styles.title}>{profile.name}</h1>
             <p className={styles.tagline}>{profile.tagline}</p>
             <p className={styles.bio}>

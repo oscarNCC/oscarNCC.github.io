@@ -1,49 +1,33 @@
-import { useState, useEffect } from 'react';
+import { Suspense, lazy, useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Layout } from './layout/Layout';
-import { Home } from './pages/Home';
-import { About } from './pages/About';
-import { Projects } from './pages/Projects';
-import { Contact } from './pages/Contact';
 import { ScrollToTop } from './components/ScrollToTop';
-import { projects } from './data/projects';
 import './App.css';
 
-const PRELOAD_TIMEOUT_MS = 15000;
+const MIN_LOADING_MS = 500;
 
-function preloadImages(urls: string[]): Promise<void> {
-  const unique = [...new Set(urls)].filter(Boolean);
-  if (unique.length === 0) return Promise.resolve();
-  return Promise.all(
-    unique.map(
-      (src) =>
-        new Promise<void>((resolve) => {
-          const img = new Image();
-          const done = () => resolve();
-          img.onload = done;
-          img.onerror = done;
-          img.src = src;
-        })
-    )
-  ).then(() => {});
+const Home = lazy(() => import('./pages/Home').then((m) => ({ default: m.Home })));
+const About = lazy(() => import('./pages/About').then((m) => ({ default: m.About })));
+const Projects = lazy(() => import('./pages/Projects').then((m) => ({ default: m.Projects })));
+const Contact = lazy(() => import('./pages/Contact').then((m) => ({ default: m.Contact })));
+
+function RouteFallback() {
+  return (
+    <div className="loading-pag">
+      <div className="loader" />
+    </div>
+  );
 }
 
 export default function App() {
-  const [loading, setLoading] = useState(true);
+  const [minLoadingDone, setMinLoadingDone] = useState(false);
 
   useEffect(() => {
-    const urls = projects.flatMap((p) =>
-      p.previewMedia?.length ? p.previewMedia : p.previewGif ? [p.previewGif] : []
-    );
-    const timeoutId = setTimeout(() => setLoading(false), PRELOAD_TIMEOUT_MS);
-    preloadImages(urls).then(() => {
-      clearTimeout(timeoutId);
-      setLoading(false);
-    });
-    return () => clearTimeout(timeoutId);
+    const t = setTimeout(() => setMinLoadingDone(true), MIN_LOADING_MS);
+    return () => clearTimeout(t);
   }, []);
 
-  if (loading) {
+  if (!minLoadingDone) {
     return (
       <div className="loading-pag">
         <div className="loader" />
@@ -54,15 +38,17 @@ export default function App() {
   return (
     <BrowserRouter>
       <ScrollToTop />
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="about" element={<About />} />
-          <Route path="projects" element={<Projects />} />
-          <Route path="contact" element={<Contact />} />
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Route>
-      </Routes>
+      <Suspense fallback={<RouteFallback />}>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Home />} />
+            <Route path="about" element={<About />} />
+            <Route path="projects" element={<Projects />} />
+            <Route path="contact" element={<Contact />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Route>
+        </Routes>
+      </Suspense>
     </BrowserRouter>
   );
 }

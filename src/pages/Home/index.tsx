@@ -26,9 +26,9 @@ export function Home() {
       <main className="main-content">
         <section className={styles.section} id="projects">
           <h2 className="heading">Projects</h2>
-          <div className="row g-5">
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
             {featuredProjects.map((project) => (
-              <div key={project.id} className="col-md-6 col-lg-4">
+              <div key={project.id}>
                 <ProjectCard project={project} />
               </div>
             ))}

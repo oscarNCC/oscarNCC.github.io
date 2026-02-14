@@ -4,7 +4,7 @@ import styles from './Contact.module.css';
 export function Contact() {
   return (
     <main className="main-content">
-      <div className="container">
+      <div className="mx-auto max-w-7xl px-4">
         <section className={styles.section}>
           <h2 className="heading">Contact</h2>
         <p className={styles.intro}>
