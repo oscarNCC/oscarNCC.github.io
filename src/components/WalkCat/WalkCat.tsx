@@ -1,6 +1,6 @@
 /**
  * Bottom bar cat: walk (idle sprite 加速) / run (walk sprite) / idle (站立).
- * Requires in public/: cat-walk.png = run sprite, cat-idle.png = walk + idle sprite.
+ * Requires in public/: cat-walk.webp = run sprite, cat-idle.webp = walk + idle sprite.
  *
  * 黑閃可能原因與對應：
  * - Canvas clearRect：本元件用 CSS sprite，無 Canvas，不適用。
@@ -15,7 +15,7 @@ const MEAT_EMOJI = '🍗';
 const CAT_FALL_DURATION_MS = 1800;
 const MEAT_ARRIVE_THRESHOLD = 12;
 
-const RUN_SHEET_FRAMES = 13; // cat-walk.png = run
+const RUN_SHEET_FRAMES = 13; // cat-walk.webp = run
 const RUN_FRAME_COUNT = 13;
 const IDLE_COLS = 7;
 const IDLE_ROWS = 1;
@@ -116,7 +116,7 @@ export function WalkCat() {
         frameHeight: sheetHeight,
       });
     };
-    walkImg.src = '/cat-walk.png';
+    walkImg.src = '/cat-walk.webp';
 
     const idleImg = new Image();
     idleImg.onload = () => {
@@ -134,7 +134,7 @@ export function WalkCat() {
         rows: IDLE_ROWS,
       });
     };
-    idleImg.src = '/cat-idle.png';
+    idleImg.src = '/cat-idle.webp';
   }, []);
 
   useEffect(() => {
@@ -343,7 +343,7 @@ export function WalkCat() {
   const transform = `translateX(${x}px) scale(${eatScale})${direction === 'left' ? ' scaleX(-1)' : ''}`;
 
   const goingToMeat = meatTargets.length > 0;
-  // run 狀態：cat-walk.png（含跑向肉時）
+  // run 狀態：cat-walk.webp（含跑向肉時）
   const runStyle =
     walkSize &&
     ({
@@ -351,14 +351,14 @@ export function WalkCat() {
       transformOrigin: 'bottom left',
       width: walkSize.frameWidth,
       height: walkSize.frameHeight,
-      backgroundImage: 'url(/cat-walk.png)',
+      backgroundImage: 'url(/cat-walk.webp)',
       backgroundPosition: `${-Math.round(safeWalkIndex * walkSize.frameWidth)}px 0`,
       backgroundSize: `${walkSize.sheetWidth}px ${walkSize.sheetHeight}px`,
       opacity: mode === 'run' || goingToMeat ? 1 : 0,
       pointerEvents: mode === 'run' || goingToMeat ? 'auto' : 'none',
     } as const);
 
-  // walk + idle 狀態：cat-idle.png（walk 時加速播）
+  // walk + idle 狀態：cat-idle.webp（walk 時加速播）
   const idleSheetStyle =
     idleSize &&
     ({
@@ -366,7 +366,7 @@ export function WalkCat() {
       transformOrigin: 'bottom left',
       width: idleSize.frameWidth,
       height: idleSize.frameHeight,
-      backgroundImage: 'url(/cat-idle.png)',
+      backgroundImage: 'url(/cat-idle.webp)',
       backgroundPosition: isIdleGrid
         ? `${-Math.round(idleCol * idleSize.frameWidth)}px ${-Math.round(idleRow * idleSize.frameHeight)}px`
         : '0 0',
@@ -387,7 +387,7 @@ export function WalkCat() {
             style={{
               width: fallCatSize.frameWidth,
               height: fallCatSize.frameHeight,
-              backgroundImage: 'url(/cat-idle.png)',
+              backgroundImage: 'url(/cat-idle.webp)',
               backgroundPosition: '0 0',
               backgroundSize: `${fallCatSize.sheetWidth}px ${fallCatSize.sheetHeight}px`,
               backgroundRepeat: 'no-repeat',

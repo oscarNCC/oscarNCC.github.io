@@ -24,7 +24,7 @@
       rgba(0, 0, 0, 0.5) 70%,
       rgba(0, 10, 20, 0.9) 100%
     ),
-    url(/landing-bg.png);
+    url(/landing-bg.webp);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
