@@ -2,11 +2,31 @@ import type { Project } from '../types';
 
 export const projects: Project[] = [
   {
+    id: 'challenger-sale',
+    title: 'The Challenger Sale',
+    description: 'An AI Chatbot that uses "The Challenger Sale" tactics to disrupt the status quo, teaching Alberta clients about hidden risks and taking control of the conversation to drive insurance sales.',
+    image: '/The-Challenger-Sale.webp',
+    route: '/projects/challenger-sale',
+    tags: [
+      'AI Chatbot', 
+      'LangGraph', 
+      'Llama 3.1', 
+      'RAG', 
+      'Fine-tuning', 
+      'Unsloth',
+      'Sales Methodology', 
+      'Behavioral Modeling',
+      'Alberta Insurance Logic'
+    ],
+    featured: true,
+    inProgress: true,
+  },
+  {
     id: 'tradesim',
     title: 'TradeSim',
     description: 'Trading simulator platform with live analysis, trade records, win rate metrics, and tick-by-tick stream simulation. Built with Python, Dash and Plotly. Supports Databento API.',
     image: '/TradeSim.webp',
-    inProgress: true,
+    inProgress: false,
     previewGif: '/TradeSim.gif',
     tags: [
       'Python',
@@ -58,7 +78,5 @@ export const projects: Project[] = [
     previewGif: '/PizzaShop-Client.gif',
     tags: ['Node.js', 'Express', 'TypeScript', 'REST API', ",React"],
     featured: true,
-  }
- 
-
+  },
 ];

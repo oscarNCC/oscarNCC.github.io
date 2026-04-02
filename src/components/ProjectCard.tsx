@@ -1,4 +1,5 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import type { Project } from '../types';
 import styles from './ProjectCard.module.css';
 
@@ -89,7 +90,19 @@ export function ProjectCard({ project }: ProjectCardProps) {
             <span className={styles.inProgressText}>In Progress</span>
           </div>
         )}
-        {project.link ? (
+        {project.route ? (
+          <Link
+            to={project.route}
+            className={styles.imageLink}
+            aria-label={`View ${project.title}`}
+          >
+            <img
+              src={project.image}
+              alt={project.title}
+              className={styles.image}
+            />
+          </Link>
+        ) : project.link ? (
           <a
             href={project.link}
             target="_blank"

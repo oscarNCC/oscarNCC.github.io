@@ -10,6 +10,7 @@ const Home = lazy(() => import('./pages/Home').then((m) => ({ default: m.Home })
 const About = lazy(() => import('./pages/About').then((m) => ({ default: m.About })));
 const Projects = lazy(() => import('./pages/Projects').then((m) => ({ default: m.Projects })));
 const Contact = lazy(() => import('./pages/Contact').then((m) => ({ default: m.Contact })));
+const ChallengerSale = lazy(() => import('./pages/ChallengerSale').then((m) => ({ default: m.ChallengerSale })));
 
 function RouteFallback() {
   return (
@@ -44,6 +45,7 @@ export default function App() {
             <Route index element={<Home />} />
             <Route path="about" element={<About />} />
             <Route path="projects" element={<Projects />} />
+            <Route path="projects/challenger-sale" element={<ChallengerSale />} />
             <Route path="contact" element={<Contact />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Route>

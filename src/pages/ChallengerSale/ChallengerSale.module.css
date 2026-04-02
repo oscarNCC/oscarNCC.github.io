@@ -1,0 +1,78 @@
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 2rem;
+  align-items: start;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+@media (max-width: 960px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.iframeWrap {
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #fff;
+}
+
+.iframe {
+  display: block;
+  width: 100%;
+  min-height: 72vh;
+  border: none;
+}
+
+.descCard {
+  background: var(--page-bg-soft, #1a2238);
+  border: 1px solid var(--border-color, rgba(255, 255, 255, 0.1));
+  border-radius: 12px;
+  padding: 1.6rem;
+  position: sticky;
+  top: 8rem;
+}
+
+.tabList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-bottom: 1.2rem;
+}
+
+.tabButton {
+  border: 1px solid var(--border-color, rgba(255, 255, 255, 0.25));
+  background: transparent;
+  color: var(--white, #fff);
+  border-radius: 999px;
+  padding: 0.45rem 0.9rem;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.tabButtonActive {
+  border-color: var(--green, #00e5fe);
+  color: var(--green, #00e5fe);
+  background: rgba(0, 229, 254, 0.12);
+}
+
+.descTitle {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--white, #fff);
+  margin-bottom: 0.8rem;
+}
+
+.descBody {
+  font-size: 1.4rem;
+  line-height: 1.7;
+  color: var(--text-muted, rgba(255, 255, 255, 0.7));
+}
+
+.title {
+  text-align: center !important;
+}

@@ -11,6 +11,8 @@ export interface Project {
   /** 多張圖輪播預覽（與 gif player 同款樣式） */
   previewMedia?: string[];
   inProgress?: boolean;
+  /** Internal route path (same-tab navigation via react-router) */
+  route?: string;
   tags: string[];
   featured?: boolean;
 }
