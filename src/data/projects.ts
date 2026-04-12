@@ -1,4 +1,17 @@
-import type { Project } from '../types';
+import type { Project, ProjectTabId } from '../types';
+
+/** 首頁／專案頁分頁選項（All + 三類） */
+export const PROJECT_TABS: { id: ProjectTabId; label: string }[] = [
+  { id: 'all', label: 'All' },
+  { id: 'website', label: 'Website' },
+  { id: 'mobile', label: 'Mobile' },
+  { id: 'ai', label: 'AI' },
+];
+
+export function filterProjectsByTab(list: Project[], tab: ProjectTabId): Project[] {
+  if (tab === 'all') return list;
+  return list.filter((p) => p.categories.includes(tab));
+}
 
 export const projects: Project[] = [
   {
@@ -18,6 +31,7 @@ export const projects: Project[] = [
       'Behavioral Modeling',
       'Alberta Insurance Logic'
     ],
+    categories: ['ai'],
     featured: true,
     inProgress: true,
   },
@@ -36,6 +50,7 @@ export const projects: Project[] = [
       'Tick-by-tick',
       'Trading Simulator',
     ],
+    categories: ['website'],
     featured: true,
   },
   {
@@ -56,6 +71,7 @@ export const projects: Project[] = [
       "Tailwind CSS",
       "Recharts"
     ],
+    categories: ['website'],
     featured: true,
   },
   {
@@ -67,6 +83,7 @@ export const projects: Project[] = [
     videoUrl: 'https://www.youtube.com/watch?v=kPpcmBiDhhA&list=PLci2z87RuSLwgzTVfzN5kCzeaT8njKZ6i&index=3',
     previewGif: '/signchat.gif',
     tags: ['iOS', 'Objective-C', 'MediaPipe', 'Sign Language', 'ML'],
+    categories: ['mobile', 'ai'],
     featured: true,
   },
   {
@@ -76,7 +93,8 @@ export const projects: Project[] = [
     image: '/opentable.webp',
     link: 'https://github.com/oscarNCC/PizzaShop-FullStack-ShowCase',
     previewGif: '/PizzaShop-Client.gif',
-    tags: ['Node.js', 'Express', 'TypeScript', 'REST API', ",React"],
+    tags: ['Node.js', 'Express', 'TypeScript', 'REST API', 'React'],
+    categories: ['website'],
     featured: true,
   },
 ];

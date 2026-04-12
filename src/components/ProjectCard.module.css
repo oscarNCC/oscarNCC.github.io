@@ -5,7 +5,9 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  transition: box-shadow 0.25s ease;
+  transition:
+    box-shadow 0.25s ease,
+    transform 0.25s ease;
   margin: 1rem;
   padding: 0;
   background: #fff;
@@ -13,7 +15,18 @@
 }
 
 .card:hover {
+  transform: scale(1.02);
   box-shadow: 0 12px 36px rgba(38, 70, 83, 0.08), 0 4px 12px rgba(38, 70, 83, 0.05);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    transition: box-shadow 0.25s ease;
+  }
+
+  .card:hover {
+    transform: none;
+  }
 }
 
 .imageWrap {
@@ -67,28 +80,40 @@
 }
 
 .previewOverlay {
-  position: absolute;
+  position: fixed;
   width: min(420px, 95vw);
   border-radius: 12px;
   overflow: hidden;
   pointer-events: none;
-  z-index: 20;
+  z-index: 10050;
   transform: translate(-50%, calc(-100% - 12px));
-  padding: 3px;
+  padding: 4px;
+  /* 黃 → 金 → 橙 → 紅橙 循環，對比明顯 */
   background: linear-gradient(
     90deg,
-    #fefae0,
-    #f5e6a8,
-    #e9c46a,
-    #fcd4a8,
-    #fefae0,
-    #f4d4a8
+    #fff9db,
+    #fde047,
+    #facc15,
+    #fbbf24,
+    #fb923c,
+    #f97316,
+    #ea580c,
+    #ef4444,
+    #f97316,
+    #fb923c,
+    #f59e0b,
+    #eab308,
+    #fde047,
+    #fff9db
   );
-  background-size: 300% 100%;
-  animation: rgbBorder 4s linear infinite;
+  background-size: 450% 100%;
+  animation: rgbBorder 5.5s linear infinite;
   box-shadow:
-    0 8px 28px rgba(233, 196, 106, 0.25),
-    inset 0 0 12px rgba(255, 255, 255, 0.65);
+    0 0 0 1px rgba(234, 88, 12, 0.35),
+    0 0 24px rgba(251, 146, 60, 0.55),
+    0 0 48px rgba(249, 115, 22, 0.35),
+    0 12px 36px rgba(220, 38, 38, 0.22),
+    inset 0 0 10px rgba(255, 248, 220, 0.35);
 }
 
 .previewGifWrap {
@@ -115,8 +140,19 @@
 }
 
 @keyframes rgbBorder {
-  0% { background-position: 0% 50%; }
-  100% { background-position: 300% 50%; }
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .previewOverlay {
+    animation: none;
+    background-position: 35% 50%;
+  }
 }
 
 .previewGif {
@@ -229,6 +265,18 @@
 .demoLink:hover {
   background: linear-gradient(135deg, var(--fizz, #f4a261) 0%, #f6b07a 100%);
   box-shadow: 0 4px 16px rgba(244, 162, 97, 0.45);
+}
+
+button.demoLink {
+  border: none;
+  font: inherit;
+  cursor: pointer;
+  text-align: left;
+}
+
+button.demoLink:focus-visible {
+  outline: 2px solid var(--mustard, #e9c46a);
+  outline-offset: 2px;
 }
 
 .demoIcon {
@@ -398,101 +446,7 @@
   box-shadow: 0 6px 18px rgba(244, 162, 97, 0.4);
 }
 
-/* Page-curl corner (front face only) */
-.pageCorner {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 86px;
-  height: 86px;
-  padding: 0;
-  border: none;
-  background: transparent;
-  cursor: pointer;
-  z-index: 12;
-  transition: transform 0.25s ease;
-}
-
-.pageCorner:hover {
-  transform: translate(-2px, -2px);
-}
-
-.pageCorner::before {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 0;
-  height: 0;
-  border-style: solid;
-  border-width: 0 0 86px 86px;
-  border-color: transparent transparent #e9c46a transparent;
-  filter: drop-shadow(-3px -3px 8px rgba(233, 196, 106, 0.35));
-  transition: border-width 0.35s ease;
-}
-
-.pageCorner::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 0;
-  height: 0;
-  border-style: solid;
-  border-width: 0 0 74px 74px;
-  border-color: transparent transparent #ffffff transparent;
-  transition: border-width 0.35s ease;
-}
-
-.pageCorner:hover::before {
-  border-width: 0 0 96px 96px;
-}
-
-.pageCorner:hover::after {
-  border-width: 0 0 82px 82px;
-}
-
-.pageCornerHint {
-  position: absolute;
-  right: 8px;
-  bottom: 18px;
-  font-size: 1.05rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: #3d5a66;
-  transform: rotate(-45deg);
-  pointer-events: none;
-}
-
 @media (max-width: 768px) {
-  .pageCorner {
-    width: 66px;
-    height: 66px;
-  }
-
-  .pageCorner::before {
-    border-width: 0 0 66px 66px;
-  }
-
-  .pageCorner::after {
-    border-width: 0 0 56px 56px;
-  }
-
-  .pageCorner:hover::before {
-    border-width: 0 0 74px 74px;
-  }
-
-  .pageCorner:hover::after {
-    border-width: 0 0 62px 62px;
-  }
-
-  .pageCornerHint {
-    right: 6px;
-    bottom: 13px;
-    font-size: 0.9rem;
-  }
-
   .challengerBackIframe {
     min-height: 220px;
   }

@@ -1,4 +1,5 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import { Link } from 'react-router-dom';
 import type { Project } from '../types';
 import styles from './ProjectCard.module.css';
@@ -38,11 +39,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
   const handleMouseMove = useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {
       if (!hasPreview) return;
-      const rect = e.currentTarget.getBoundingClientRect();
-      setPreviewPos({
-        x: e.clientX - rect.left,
-        y: e.clientY - rect.top,
-      });
+      setPreviewPos({ x: e.clientX, y: e.clientY });
     },
     [hasPreview]
   );
@@ -65,28 +62,6 @@ export function ProjectCard({ project }: ProjectCardProps) {
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
-      {hasPreview && previewPos && (
-        <div
-          className={styles.previewOverlay}
-          aria-hidden
-          style={{ left: previewPos.x, top: previewPos.y }}
-        >
-          <div className={styles.previewGifWrap}>
-            {!previewImageLoaded && (
-              <div className={styles.previewGifPlaceholder} aria-hidden>
-                <span className={styles.previewGifPlaceholderText}>Loading...</span>
-              </div>
-            )}
-            <img
-              key={gifKey}
-              src={previewUrls[previewIndex]}
-              alt=""
-              className={styles.previewGif}
-              onLoad={handlePreviewImageLoad}
-            />
-          </div>
-        </div>
-      )}
       {project.inProgress && (
         <div className={styles.inProgressBanner} aria-hidden>
           <span className={styles.inProgressText}>In Progress</span>
@@ -139,8 +114,20 @@ export function ProjectCard({ project }: ProjectCardProps) {
           </span>
         ))}
       </div>
-      {(project.demo || project.link || project.videoUrl) && (
+      {(project.demo || project.link || project.videoUrl || isChallenger) && (
         <div className={styles.links}>
+          {isChallenger && (
+            <button
+              type="button"
+              className={styles.demoLink}
+              onClick={() => setFlipped(true)}
+              aria-label={`Open ${project.title} demo`}
+              aria-expanded={flipped}
+            >
+              <span className={styles.demoIcon} aria-hidden>◇</span>
+              Demo
+            </button>
+          )}
           {project.demo && (
             <a
               href={project.demo}
@@ -190,23 +177,44 @@ export function ProjectCard({ project }: ProjectCardProps) {
     </div>
   );
 
+  const previewPortal =
+    hasPreview &&
+    previewPos &&
+    typeof document !== 'undefined' &&
+    createPortal(
+      <div
+        className={styles.previewOverlay}
+        aria-hidden
+        style={{ left: previewPos.x, top: previewPos.y }}
+      >
+        <div className={styles.previewGifWrap}>
+          {!previewImageLoaded && (
+            <div className={styles.previewGifPlaceholder} aria-hidden>
+              <span className={styles.previewGifPlaceholderText}>Loading...</span>
+            </div>
+          )}
+          <img
+            key={gifKey}
+            src={previewUrls[previewIndex]}
+            alt=""
+            className={styles.previewGif}
+            onLoad={handlePreviewImageLoad}
+          />
+        </div>
+      </div>,
+      document.body
+    );
+
   return (
-    <article className={`${styles.card} ${isChallenger ? styles.cardChallenger : ''}`}>
+    <>
+      {previewPortal}
+      <article className={`${styles.card} ${isChallenger ? styles.cardChallenger : ''}`}>
       {isChallenger ? (
         <div className={styles.challengerPerspective}>
           <div
             className={`${styles.challengerFlipInner} ${flipped ? styles.challengerFlipInnerFlipped : ''}`}
           >
             <div className={styles.challengerFaceFront}>
-              <button
-                type="button"
-                className={styles.pageCorner}
-                onClick={() => setFlipped(true)}
-                aria-label="Flip card to show demo"
-                aria-expanded={flipped}
-              >
-                <span className={styles.pageCornerHint}>Flip</span>
-              </button>
               {imageSection}
               {bodySection}
             </div>
@@ -231,7 +239,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
               />
               <div className={styles.challengerBackFooter}>
                 <Link to="/projects/challenger-sale" className={styles.challengerSeeMore}>
-                  See more
+                  Learn more
                 </Link>
               </div>
             </div>
@@ -244,5 +252,6 @@ export function ProjectCard({ project }: ProjectCardProps) {
         </>
       )}
     </article>
+    </>
   );
 }

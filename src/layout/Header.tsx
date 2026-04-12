@@ -12,7 +12,9 @@ export function Header() {
   return (
     <header className={styles.siteHeader}>
       <RouterLink to="/" className={styles.logo} onClick={() => setMenuOpen(false)}>
-        <span className={styles.logoText}>=(&nbsp;<span className={styles.logoName}>Oscar</span>&nbsp;)=&gt;</span>
+        <span className={styles.logoText}>
+          <span className={styles.logoName}>OscarNCC</span>
+        </span>
       </RouterLink>
 
       <button

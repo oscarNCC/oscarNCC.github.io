@@ -71,3 +71,10 @@
   margin-bottom: 1rem;
   text-align: center;
 }
+
+.projectTabEmpty {
+  grid-column: 1 / -1;
+  color: var(--text-muted, #5a7a85);
+  font-size: 1.6rem;
+  padding: 2rem 0;
+}

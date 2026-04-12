@@ -279,6 +279,19 @@ function renderFlow() {
 
 renderObjSteps(0);
 renderFlow();
+
+function notifyScrollState() {
+  var root = document.scrollingElement || document.documentElement || document.body;
+  if (!root) return;
+  var atBottom = root.scrollTop + root.clientHeight >= root.scrollHeight - 8;
+  if (window.parent && window.parent !== window) {
+    window.parent.postMessage({ type: 'challenger-demo-scroll', atBottom: atBottom }, '*');
+  }
+}
+
+window.addEventListener('scroll', notifyScrollState, { passive: true });
+window.addEventListener('load', notifyScrollState);
+setTimeout(notifyScrollState, 150);
 </script>
 
 </body>
