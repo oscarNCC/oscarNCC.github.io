@@ -206,7 +206,7 @@ export function Hero() {
             ))}
           </div>
           <div className={styles.ctaWrap}>
-            <Link to="/contact" className="custom-btn btn">
+            <Link to="/contact" className={`custom-btn btn ${styles.heroCta}`}>
               Contact
             </Link>
           </div>

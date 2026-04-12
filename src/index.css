@@ -1,25 +1,36 @@
 @import 'tailwindcss';
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap');
 
 :root {
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
-  --green: #00e5fe;
-  --secundario: #15b8ca;
-  --terciario: #00fefe;
-  --black: #121f41;
-  --light-color: #788e9c;
+  --font-display: 'Plus Jakarta Sans', var(--font-sans);
+  /* Lemon & Fizz — 白底炭灰字，亮色僅用於按鈕與小裝飾 */
+  --lemon-soft: #fefae0;
+  --mustard: #e9c46a;
+  --fizz: #f4a261;
+  --charcoal: #264653;
+  --green: #e9c46a;
+  --secundario: #f4a261;
+  --terciario: #e8b84e;
+  --black: #264653;
+  --light-color: #5a7a85;
   --white: #fff;
-  --page-bg: #151c2d;
-  --page-bg-soft: #1a2238;
-  --borde: 0.1rem solid rgba(255, 255, 255, 0.08);
-  --box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.2);
-  --border-color: rgba(255, 255, 255, 0.1);
-  --text-muted: rgba(255, 255, 255, 0.7);
-  --link-color: var(--green);
-  --card-bg: #dae2f0;
-  --tag-bg: #e9ecef;
-  --code-bg: rgba(255, 255, 255, 0.15);
+  --cream: #ffffff;
+  --page-bg: #ffffff;
+  --page-bg-soft: #fefae0;
+  --oatmeal: #fefae0;
+  --khaki: rgba(233, 196, 106, 0.45);
+  --cacao: #264653;
+  --accent-gray: #f4a261;
+  --borde: 0.1rem solid rgba(38, 70, 83, 0.1);
+  --box-shadow: 0 0.5rem 1.5rem rgba(38, 70, 83, 0.07);
+  --border-color: rgba(38, 70, 83, 0.12);
+  --text-muted: #5a7a85;
+  --link-color: #2a5563;
+  --card-bg: #fff;
+  --tag-bg: #fefae0;
+  --code-bg: rgba(38, 70, 83, 0.06);
 }
 
 *,
@@ -39,7 +50,7 @@ html {
 body {
   font-size: 1.6rem;
   line-height: 1.5;
-  color: var(--white);
+  color: var(--black);
   background-color: var(--page-bg);
   -webkit-font-smoothing: antialiased;
 }
@@ -49,16 +60,19 @@ a {
   text-decoration: none;
 }
 
+a:hover {
+  color: var(--secundario);
+}
+
 img {
   max-width: 100%;
   height: auto;
   display: block;
 }
 
-/* Loading */
 .loading-pag {
   text-align: center;
-  background: #0e0c0c;
+  background: var(--page-bg-soft);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -66,16 +80,15 @@ img {
   height: 100vh;
 }
 
-/* HTML: <div class="loader"></div> */
 .loader {
   width: fit-content;
   font-weight: bold;
   font-family: monospace;
-  color: var(--white);
+  color: var(--black);
   text-shadow:
-    0 0 0 rgb(255 0 0),
-    0 0 0 rgb(0 255 0),
-    0 0 0 rgb(0 0 255);
+    0 0 0 rgb(233 196 106),
+    0 0 0 rgb(244 162 97),
+    0 0 0 rgb(254 250 224);
   font-size: 30px;
   animation: l32 1s infinite cubic-bezier(0.5, -2000, 0.5, 2000);
 }
@@ -87,29 +100,29 @@ img {
 @keyframes l32 {
   25%, 100% {
     text-shadow:
-      0.03px -0.01px 0.01px rgb(255 0 0),
-      0.02px 0.02px 0 rgb(0 255 0),
-      -0.02px 0.02px 0 rgb(0 0 255);
+      0.03px -0.01px 0.01px rgb(233 196 106),
+      0.02px 0.02px 0 rgb(244 162 97),
+      -0.02px 0.02px 0 rgb(254 250 224);
   }
 }
 
-/* Section heading (Nahuel style) */
 .heading {
+  font-family: var(--font-display);
   text-align: center;
   padding-bottom: 3rem;
   margin-top: 5rem;
   font-size: 4rem;
-  color: var(--white);
-  font-weight: 700;
+  color: var(--black);
+  font-weight: 800;
+  letter-spacing: -0.02em;
 }
 
-/* Buttons */
 .custom-btn {
   text-align: center;
   max-width: 18rem;
   height: 4rem;
-  color: var(--white);
-  border-radius: 5px;
+  color: var(--black);
+  border-radius: 8px;
   border: 2px solid transparent;
   padding: 0.8rem 2rem;
   cursor: pointer;
@@ -122,24 +135,27 @@ img {
 }
 
 .btn {
-  background: var(--green);
-  color: var(--black);
+  background: linear-gradient(135deg, var(--mustard) 0%, var(--fizz) 100%);
+  color: var(--charcoal);
+  box-shadow: 0 4px 18px rgba(233, 196, 106, 0.45);
 }
 
 .btn:hover {
-  background: var(--terciario);
-  color: var(--black);
+  background: linear-gradient(135deg, var(--fizz) 0%, #f6b07a 100%);
+  color: var(--charcoal);
+  box-shadow: 0 6px 22px rgba(244, 162, 97, 0.5);
 }
 
 .btn-codigo {
-  border: 2px solid rgba(255, 255, 255, 0.9);
-  color: var(--white);
+  border: 2px solid rgba(38, 70, 83, 0.2);
+  color: var(--black);
   background: transparent;
 }
 
 .btn-codigo:hover {
-  background: var(--white);
-  color: var(--page-bg);
+  background: var(--lemon-soft);
+  border-color: var(--mustard);
+  color: var(--black);
 }
 
 @media (max-width: 570px) {

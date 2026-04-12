@@ -58,12 +58,12 @@
 
 .contactLink {
   font-size: 1.8rem;
-  color: var(--green);
+  color: var(--link-color, #2a5563);
   font-weight: 600;
 }
 
 .contactLink:hover {
-  color: var(--secundario);
+  color: var(--black, #264653);
 }
 
 .allProjectsWrap {

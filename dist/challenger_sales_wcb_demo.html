@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Challenger Sale Demo</title>
+<style>
+:root {
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --color-text-primary: #1a1a2e;
+  --color-text-secondary: #555;
+  --color-text-tertiary: #999;
+  --color-text-info: #1a3a5c;
+  --color-background-primary: #ffffff;
+  --color-background-secondary: #f5f5f7;
+  --color-background-info: #e8f0fe;
+  --color-border-primary: #bbb;
+  --color-border-secondary: #ddd;
+  --color-border-tertiary: #eaeaea;
+  --border-radius-md: 8px;
+  --border-radius-lg: 12px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font-sans); padding: 1rem; background: #fff; }
+.demo-wrap { padding: 1rem 0; max-width: 820px; }
+.tabs { display: none; }
+.tab { padding: 7px 16px; font-size: 13px; border: 0.5px solid var(--color-border-secondary); border-radius: var(--border-radius-md); background: transparent; color: var(--color-text-secondary); cursor: pointer; transition: all 0.15s; }
+.tab.active { background: var(--color-background-secondary); color: var(--color-text-primary); border-color: var(--color-border-primary); font-weight: 500; }
+.section { display: none; }
+.section.active { display: block; }
+
+.chat-window { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); overflow: hidden; }
+.chat-header { padding: 12px 16px; border-bottom: 0.5px solid var(--color-border-tertiary); display: flex; align-items: center; gap: 10px; }
+.agent-dot { width: 8px; height: 8px; border-radius: 50%; background: #1D9E75; }
+.chat-header-text { font-size: 13px; font-weight: 500; color: var(--color-text-primary); }
+.chat-header-sub { font-size: 11px; color: var(--color-text-secondary); margin-left: auto; }
+.chat-messages { padding: 16px; min-height: 320px; display: flex; flex-direction: column; gap: 12px; }
+.msg { max-width: 80%; }
+.msg.client { align-self: flex-end; }
+.msg.agent { align-self: flex-start; }
+.bubble { padding: 10px 14px; border-radius: 14px; font-size: 14px; line-height: 1.6; }
+.msg.client .bubble { background: var(--color-background-info); color: var(--color-text-info); border-bottom-right-radius: 4px; }
+.msg.agent .bubble { background: var(--color-background-secondary); color: var(--color-text-primary); border-bottom-left-radius: 4px; }
+.msg-label { font-size: 11px; color: var(--color-text-tertiary); margin-bottom: 4px; }
+.msg.client .msg-label { text-align: right; }
+.tag { display: inline-block; font-size: 10px; padding: 2px 7px; border-radius: 10px; margin-top: 6px; font-weight: 500; }
+.tag-teach { background: #E1F5EE; color: #0F6E56; }
+.tag-reframe { background: #E6F1FB; color: #185FA5; }
+.tag-tension { background: #FAEEDA; color: #854F0B; }
+.tag-control { background: #EEEDFE; color: #534AB7; }
+
+.objection-picker { margin-bottom: 1.5rem; }
+.objection-picker label { font-size: 13px; color: var(--color-text-secondary); display: block; margin-bottom: 8px; }
+.objection-btns { display: flex; flex-wrap: wrap; gap: 8px; }
+.obj-btn { padding: 8px 14px; font-size: 13px; border: 0.5px solid var(--color-border-secondary); border-radius: var(--border-radius-md); background: transparent; color: var(--color-text-primary); cursor: pointer; transition: all 0.15s; }
+.obj-btn.selected { border-color: #185FA5; background: #E6F1FB; color: #185FA5; }
+
+.response-box { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 16px; }
+.response-label { font-size: 11px; color: var(--color-text-tertiary); margin-bottom: 10px; letter-spacing: 0.05em; text-transform: uppercase; }
+.response-step { display: flex; gap: 12px; padding: 10px 0; border-bottom: 0.5px solid var(--color-border-tertiary); }
+.response-step:last-child { border-bottom: none; }
+.step-num { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 500; flex-shrink: 0; margin-top: 1px; }
+.step-body { flex: 1; }
+.step-title { font-size: 12px; font-weight: 500; color: var(--color-text-secondary); margin-bottom: 4px; }
+.step-text { font-size: 14px; color: var(--color-text-primary); line-height: 1.6; font-style: italic; }
+
+.compare-grid { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 12px; }
+.compare-card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 16px; }
+.compare-card.challenger { border-color: #1D9E75; border-width: 1.5px; }
+.compare-title { font-size: 13px; font-weight: 500; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 0.5px solid var(--color-border-tertiary); display: flex; align-items: center; gap: 8px; }
+.badge { font-size: 10px; padding: 2px 8px; border-radius: 10px; font-weight: 500; }
+.badge-good { background: #E1F5EE; color: #0F6E56; }
+.badge-bad { background: #FCEBEB; color: #A32D2D; }
+.compare-item { font-size: 13px; color: var(--color-text-secondary); padding: 5px 0; display: flex; gap: 8px; line-height: 1.5; border-bottom: 0.5px solid var(--color-border-tertiary); }
+.compare-item:last-child { border-bottom: none; }
+.ci-icon { width: 14px; flex-shrink: 0; margin-top: 2px; }
+
+.flow-wrap { display: flex; flex-direction: column; gap: 8px; }
+.flow-step { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-md); padding: 12px 14px; display: flex; gap: 12px; align-items: flex-start; }
+.flow-num { width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 500; flex-shrink: 0; }
+.flow-content { flex: 1; }
+.flow-title { font-size: 13px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 2px; }
+.flow-desc { font-size: 12px; color: var(--color-text-secondary); line-height: 1.5; }
+.flow-arrow { text-align: center; color: var(--color-text-tertiary); font-size: 12px; padding: 2px 0; }
+</style>
+</head>
+<body>
+
+<div class="demo-wrap">
+  <div class="tabs">
+    <button class="tab active" onclick="showTab('dialogue', this)">Live dialogue demo</button>
+    <button class="tab" onclick="showTab('objections', this)">Objection playbook</button>
+    <button class="tab" onclick="showTab('compare', this)">Challenger vs relationship builder</button>
+    <button class="tab" onclick="showTab('flow', this)">Teaching choreography</button>
+  </div>
+
+  <div id="tab-dialogue" class="section active">
+    <div class="chat-window">
+      <div class="chat-header">
+        <div class="agent-dot"></div>
+        <span class="chat-header-text">AI Challenger Agent — Alberta WCB</span>
+        <span class="chat-header-sub">Challenger Sale methodology</span>
+      </div>
+      <div class="chat-messages" id="chat-msgs">
+        <div class="msg client"><div class="msg-label">Prospect</div><div class="bubble">I already have WCB. We're covered.</div></div>
+        <div class="msg agent">
+          <div class="msg-label">Challenger Agent</div>
+          <div class="bubble">
+            That's great — most Alberta businesses do. Quick question though: is your coverage through your own optional policy, or purely through the provincial WCB board?
+            <span class="tag tag-reframe">Reframe</span>
+          </div>
+        </div>
+        <div class="msg client"><div class="msg-label">Prospect</div><div class="bubble">Just the standard WCB. Everyone has that.</div></div>
+        <div class="msg agent">
+          <div class="msg-label">Challenger Agent</div>
+          <div class="bubble">
+            Right — and that covers your workers on the job. But here's what most owners in construction and oil &amp; gas don't realize until it's too late: <strong>WCB doesn't cover you as the owner-operator</strong>. If you're on site and get hurt, WCB pays nothing toward your income. Plus, WCB caps wage replacement well below what senior tradespeople actually earn. I see this gap hit Alberta families hard every year.
+            <span class="tag tag-teach">Teach</span>
+            <span class="tag tag-tension">Constructive tension</span>
+          </div>
+        </div>
+        <div class="msg client"><div class="msg-label">Prospect</div><div class="bubble">Hmm. I hadn't really thought about the owner coverage piece.</div></div>
+        <div class="msg agent">
+          <div class="msg-label">Challenger Agent</div>
+          <div class="bubble">
+            Most people don't. Can I ask — how many people do you have on site, and do you use any subcontractors? That changes your exposure picture quite a bit, and I want to show you exactly where you're protected and where you're not. Takes about 10 minutes.
+            <span class="tag tag-control">Take control</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="tab-objections" class="section">
+    <div class="objection-picker">
+      <label>Select a common objection:</label>
+      <div class="objection-btns">
+        <button class="obj-btn selected" onclick="selectObj(0, this)">I already have WCB</button>
+        <button class="obj-btn" onclick="selectObj(1, this)">Too expensive</button>
+        <button class="obj-btn" onclick="selectObj(2, this)">I'll think about it</button>
+        <button class="obj-btn" onclick="selectObj(3, this)">My broker handles it</button>
+      </div>
+    </div>
+    <div class="response-box">
+      <div class="response-label">Challenger response breakdown</div>
+      <div id="obj-steps"></div>
+    </div>
+  </div>
+
+  <div id="tab-compare" class="section">
+    <div class="compare-grid">
+      <div class="compare-card">
+        <div class="compare-title">Relationship builder <span class="badge badge-bad">Avoid</span></div>
+        <div class="compare-item"><span class="ci-icon" style="color:#A32D2D;">&#10005;</span> Accepts "I have WCB" at face value</div>
+        <div class="compare-item"><span class="ci-icon" style="color:#A32D2D;">&#10005;</span> "No problem, call me if you need anything!"</div>
+        <div class="compare-item"><span class="ci-icon" style="color:#A32D2D;">&#10005;</span> Avoids all tension or pushback</div>
+        <div class="compare-item"><span class="ci-icon" style="color:#A32D2D;">&#10005;</span> Leads with product features</div>
+        <div class="compare-item"><span class="ci-icon" style="color:#A32D2D;">&#10005;</span> Asks "what would it take to earn your business?"</div>
+        <div class="compare-item"><span class="ci-icon" style="color:#A32D2D;">&#10005;</span> Outcome: ghosted, no follow-up reason</div>
+      </div>
+      <div class="compare-card challenger">
+        <div class="compare-title">Challenger <span class="badge badge-good">Target</span></div>
+        <div class="compare-item"><span class="ci-icon" style="color:#0F6E56;">&#10003;</span> Probes what "WCB" actually means to them</div>
+        <div class="compare-item"><span class="ci-icon" style="color:#0F6E56;">&#10003;</span> Introduces owner-operator coverage gap</div>
+        <div class="compare-item"><span class="ci-icon" style="color:#0F6E56;">&#10003;</span> Uses Alberta data to quantify risk</div>
+        <div class="compare-item"><span class="ci-icon" style="color:#0F6E56;">&#10003;</span> Establishes solution criteria before product</div>
+        <div class="compare-item"><span class="ci-icon" style="color:#0F6E56;">&#10003;</span> Controls next step with low-risk ask</div>
+        <div class="compare-item"><span class="ci-icon" style="color:#0F6E56;">&#10003;</span> Outcome: booked 10-min coverage review</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="tab-flow" class="section">
+    <div class="flow-wrap" id="flow-steps"></div>
+  </div>
+</div>
+
+<script>
+var objections = [
+  {
+    label: "I already have WCB",
+    steps: [
+      { n:"1", color:"#185FA5", bg:"#E6F1FB", title:"Acknowledge & clarify", text:'"That\'s great \u2014 is that through your own optional policy or just the provincial board?"' },
+      { n:"2", color:"#0F6E56", bg:"#E1F5EE", title:"Teach the blind spot", text:'"Most owners don\'t realize WCB doesn\'t cover them as owner-operators. If you\'re hurt on site, nothing comes in."' },
+      { n:"3", color:"#854F0B", bg:"#FAEEDA", title:"Rational drowning", text:'"Alberta WCB caps wage replacement at ~$102K. If your top earner makes more, the gap is yours to absorb."' },
+      { n:"4", color:"#534AB7", bg:"#EEEDFE", title:"Take control", text:'"Let me do a 10-minute coverage review \u2014 not to replace what you have, just to show you exactly where the gaps are."' }
+    ]
+  },
+  {
+    label: "Too expensive",
+    steps: [
+      { n:"1", color:"#185FA5", bg:"#E6F1FB", title:"Reframe the baseline", text:'"Compared to what? The average WCB claim dispute in Alberta costs the employer $23K in legal and admin costs alone."' },
+      { n:"2", color:"#0F6E56", bg:"#E1F5EE", title:"Teach cost of inaction", text:'"Most clients I work with find the premium is 60\u201370% less than one uninsured incident. The math changes fast."' },
+      { n:"3", color:"#854F0B", bg:"#FAEEDA", title:"Isolate the objection", text:'"Is it the total premium, or is it how it\'s structured? Because there are monthly options that most brokers don\'t lead with."' },
+      { n:"4", color:"#534AB7", bg:"#EEEDFE", title:"Take control", text:'"Let me run the numbers specific to your headcount. If it doesn\'t make sense, I\'ll tell you."' }
+    ]
+  },
+  {
+    label: "I'll think about it",
+    steps: [
+      { n:"1", color:"#185FA5", bg:"#E6F1FB", title:"Surface the real hesitation", text:'"Of course. Can I ask \u2014 is it more about the cost, or do you have a question I haven\'t answered well yet?"' },
+      { n:"2", color:"#0F6E56", bg:"#E1F5EE", title:"Create urgency with data", text:'"The reason I ask is that WCB policy changes in Alberta usually hit April 1. Lock-in rates before then."' },
+      { n:"3", color:"#854F0B", bg:"#FAEEDA", title:"Make inaction costly", text:'"Every week without coverage is a week your family\'s income is unprotected if something happens on site."' },
+      { n:"4", color:"#534AB7", bg:"#EEEDFE", title:"Propose a small next step", text:'"What if we just do a quick review Thursday? No commitment. You\'ll at least know exactly what you\'re working with."' }
+    ]
+  },
+  {
+    label: "My broker handles it",
+    steps: [
+      { n:"1", color:"#185FA5", bg:"#E6F1FB", title:"Respect & redirect", text:'"Good \u2014 having a broker is smart. Can I ask when they last reviewed your WCB gap specifically?"' },
+      { n:"2", color:"#0F6E56", bg:"#E1F5EE", title:"Introduce the gap brokers miss", text:'"Most general brokers don\'t flag owner-operator WCB exclusions. It\'s not their specialty, and clients don\'t know to ask."' },
+      { n:"3", color:"#854F0B", bg:"#FAEEDA", title:"Position as complementary", text:'"I\'m not here to replace your broker. I\'m just focused on one specific gap they may not have shown you."' },
+      { n:"4", color:"#534AB7", bg:"#EEEDFE", title:"Take control", text:'"What if I put together a one-page gap analysis you can actually show your broker? Useful either way."' }
+    ]
+  }
+];
+
+var flowData = [
+  { n:"1", color:"#185FA5", bg:"#E6F1FB", title:"The warmer", desc:"Open with Alberta industry-specific pain \u2014 energy sector volatility, construction site risk, seasonal shutdowns." },
+  { n:"2", color:"#0F6E56", bg:"#E1F5EE", title:"The reframe", desc:"Shift the lens from 'general accident coverage' to the specific gaps in WCB that the prospect hasn't seen." },
+  { n:"3", color:"#854F0B", bg:"#FAEEDA", title:"Rational drowning", desc:"Pull in real Alberta data: WCB wage caps, AHS wait times, average household debt \u2014 quantify the cost of inaction." },
+  { n:"4", color:"#993C1D", bg:"#FAECE7", title:"Emotional impact", desc:"Connect risk to the prospect's specific situation \u2014 family income, recovery time, what happens to the business." },
+  { n:"5", color:"#534AB7", bg:"#EEEDFE", title:"A new way", desc:"Establish the logical requirements of a real solution before ever naming a product." },
+  { n:"6", color:"#3B6D11", bg:"#EAF3DE", title:"Your solution", desc:"Map specific policy features to the requirements established in Step 5 \u2014 prospect feels they chose it, not you." }
+];
+
+function showTab(id, btn) {
+  document.querySelectorAll('.section').forEach(function(s) { s.classList.remove('active'); });
+  document.querySelectorAll('.tab').forEach(function(t) { t.classList.remove('active'); });
+  document.getElementById('tab-' + id).classList.add('active');
+  btn.classList.add('active');
+  if (window.parent !== window) {
+    window.parent.postMessage({ type: 'challenger-tab', tab: id }, '*');
+  }
+}
+
+window.addEventListener('message', function(e) {
+  if (e.data && e.data.type === 'challenger-set-tab' && e.data.tab) {
+    var btn = document.querySelector('.tab[onclick*="' + e.data.tab + '"]');
+    if (btn) showTab(e.data.tab, btn);
+  }
+});
+
+function selectObj(idx, btn) {
+  document.querySelectorAll('.obj-btn').forEach(function(b) { b.classList.remove('selected'); });
+  btn.classList.add('selected');
+  renderObjSteps(idx);
+}
+
+function renderObjSteps(idx) {
+  var obj = objections[idx];
+  var container = document.getElementById('obj-steps');
+  container.innerHTML = obj.steps.map(function(s) {
+    return '<div class="response-step">' +
+      '<div class="step-num" style="background:' + s.bg + ';color:' + s.color + ';">' + s.n + '</div>' +
+      '<div class="step-body">' +
+        '<div class="step-title">' + s.title + '</div>' +
+        '<div class="step-text">' + s.text + '</div>' +
+      '</div>' +
+    '</div>';
+  }).join('');
+}
+
+function renderFlow() {
+  var container = document.getElementById('flow-steps');
+  var html = '';
+  flowData.forEach(function(s, i) {
+    html += '<div class="flow-step">' +
+      '<div class="flow-num" style="background:' + s.bg + ';color:' + s.color + ';">' + s.n + '</div>' +
+      '<div class="flow-content">' +
+        '<div class="flow-title">' + s.title + '</div>' +
+        '<div class="flow-desc">' + s.desc + '</div>' +
+      '</div>' +
+    '</div>';
+    if (i < flowData.length - 1) html += '<div class="flow-arrow">\u2193</div>';
+  });
+  container.innerHTML = html;
+}
+
+renderObjSteps(0);
+renderFlow();
+
+function notifyScrollState() {
+  var root = document.scrollingElement || document.documentElement || document.body;
+  if (!root) return;
+  var atBottom = root.scrollTop + root.clientHeight >= root.scrollHeight - 8;
+  if (window.parent && window.parent !== window) {
+    window.parent.postMessage({ type: 'challenger-demo-scroll', atBottom: atBottom }, '*');
+  }
+}
+
+window.addEventListener('scroll', notifyScrollState, { passive: true });
+window.addEventListener('load', notifyScrollState);
+setTimeout(notifyScrollState, 150);
+</script>
+
+</body>
+</html>
